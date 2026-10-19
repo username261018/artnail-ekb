@@ -20,19 +20,4 @@ if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es
 setTimeout(function(){fx.forEach(on)},2500);
 /* map on click */
 var mb=d.querySelector('button.map-load');if(mb)mb.addEventListener('click',function(){var f=d.createElement('iframe');f.src=mb.getAttribute('data-src');f.title='Карта: Арт Нейл, улица Степана Разина, 2';f.setAttribute('allowfullscreen','');var bx=d.getElementById('mapbox');bx.innerHTML='';bx.appendChild(f)});
-/* sliders */
-[].forEach.call(d.querySelectorAll('.car'),function(c){var r=c.querySelector('.car-rail'),it=[].slice.call(r.children),ctl=c.querySelector('.car-ctl'),pv=c.querySelector('.car-prev'),nx=c.querySelector('.car-next'),dots=c.querySelector('.car-dots');
- function stp(){return it.length>1?it[1].offsetLeft-it[0].offsetLeft:r.clientWidth}
- function upd(){var mx=r.scrollWidth-r.clientWidth,i=Math.round(r.scrollLeft/stp());[].forEach.call(dots.children,function(b,k){if(k===i)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current')});pv.disabled=r.scrollLeft<=2;nx.disabled=r.scrollLeft>=mx-2}
- function build(){var mx=r.scrollWidth-r.clientWidth;ctl.hidden=mx<4;dots.innerHTML='';var n=Math.max(1,it.length-Math.round(r.clientWidth/stp())+1);
-  for(var i=0;i<n;i++)(function(i){var b=d.createElement('button');b.type='button';b.setAttribute('aria-label','Фото '+(i+1));b.addEventListener('click',function(){r.scrollTo({left:i*stp(),behavior:'smooth'})});dots.appendChild(b)})(i);upd()}
- pv.addEventListener('click',function(){r.scrollBy({left:-stp(),behavior:'smooth'})});nx.addEventListener('click',function(){r.scrollBy({left:stp(),behavior:'smooth'})});
- r.addEventListener('scroll',function(){requestAnimationFrame(upd)});
- r.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();nx.click()}else if(e.key==='ArrowLeft'){e.preventDefault();pv.click()}});
- addEventListener('resize',build);addEventListener('load',build);build()});
-/* v2 hero: scroll swaps the set of four works */
-var dh=d.querySelector('.dh');if(dh){var sets=[].slice.call(dh.querySelectorAll('.dh-set')),stg=dh.querySelector('.dh-stage'),cur=0;
- function pick(){var run=dh.offsetHeight-stg.offsetHeight;if(run<10)return;var p=(hd.getBoundingClientRect().bottom-dh.getBoundingClientRect().top)/run,i=Math.max(0,Math.min(sets.length-1,Math.floor(p*sets.length)));
-  if(i!==cur){cur=i;sets.forEach(function(s,k){s.classList.toggle('cur',k===i)})}sets.forEach(function(s,k){if(k===cur)s.removeAttribute('aria-hidden');else s.setAttribute('aria-hidden','true')})}
- addEventListener('scroll',pick,{passive:true});addEventListener('resize',pick);pick()}
 })();
